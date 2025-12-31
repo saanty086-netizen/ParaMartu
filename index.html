@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Un Mensaje Para Vos</title>
+
+  <style>
+    /* RESET */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at 20% 20%, #111 0%, #000 60%);
+      color: #ffffff;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ===== FONDO ESTRELLADO ===== */
+    .stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><circle cx='10' cy='10' r='1' fill='white' opacity='0.6'/><circle cx='60' cy='40' r='1' fill='white' opacity='0.4'/><circle cx='120' cy='90' r='1' fill='white' opacity='0.6'/><circle cx='30' cy='140' r='1' fill='white' opacity='0.5'/><circle cx='160' cy='20' r='1' fill='white' opacity='0.5'/></svg>");
+      opacity: 0.25;
+      animation: drift 40s linear infinite;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(-200px); }
+    }
+
+    /* ===== CONTENEDOR ===== */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      margin: auto;
+      padding: 50px 16px 80px;
+    }
+
+    /* ===== IMAGEN DECORATIVA SUPERIOR ===== */
+    .hero-image {
+      width: 100%;
+      max-width: 420px;
+      height: 220px;
+      margin: 0 auto 30px;
+      border-radius: 20px;
+      background-image: url(https://i.pinimg.com/736x/01/c4/a5/01c4a5f3a4f2faf200d71a6adf812d37.jpg);
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ===== TARJETA ===== */
+    .card {
+      background: rgba(20, 20, 28, 0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+      padding: 38px 28px;
+      animation: fadeUp 1.2s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* BRILLO SUAVE */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.08), transparent);
+      animation: shine 6s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* ===== TÍTULO ===== */
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #ffffff, #c9b6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px rgba(201,182,255,0.2); }
+      to { text-shadow: 0 0 14px rgba(201,182,255,0.6); }
+    }
+
+    /* ===== TEXTO ===== */
+    p {
+      white-space: pre-wrap;
+      font-size: 1.05rem;
+      color: #f1f1f1;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== IMAGEN DECORATIVA INTERMEDIA ===== */
+    .mid-image {
+      width: 100%;
+      max-width: 360px;
+      height: 200px;
+      margin: 30px auto;
+      border-radius: 18px;
+      background-image: url(https://i.pinimg.com/1200x/bd/b1/f2/bdb1f2410b8e0900f4397d4e0995abe6.jpg);
+      background-size: cover;
+      background-position: center;
+      opacity: 0.85;
+      animation: fadeIn 2s ease forwards;
+    }
+ .mid-image2 {
+      width: 100%;
+      max-width: 360px;
+      height: 200px;
+      margin: 30px auto;
+      border-radius: 18px;
+      background-image: url(https://i.pinimg.com/736x/36/bc/6d/36bc6df9732be7dab67ca5c6629791f4.jpg);
+      background-size: cover;
+      background-position: center;
+      opacity: 0.85;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    .mid-image3 {
+      width: 100%;
+      max-width: 360px;
+      height: 200px;
+      margin: 30px auto;
+      border-radius: 18px;
+      background-image: url(https://i.pinimg.com/1200x/73/5a/91/735a91bc7c55eb0493d0c9d7858eb798.jpg);
+      background-size: cover;
+      background-position: center;
+      opacity: 0.85;
+      animation: fadeIn 2s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 0.85; transform: scale(1); }
+    }
+
+    /* ===== FIRMA ===== */
+    .signature {
+      margin-top: 30px;
+      text-align: right;
+      font-style: italic;
+      opacity: 0.9;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      margin-top: 26px;
+      text-align: center;
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+    /* CONTENEDOR */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* PARTÍCULAS */
+.particles span {
+  position: absolute;
+  bottom: -20px;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #ffffff, transparent 60%);
+  border-radius: 50%;
+  animation: floatUp linear infinite;
+  opacity: 0.8;
+  filter: blur(0.4px);
+}
+
+/* ANIMACIÓN */
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  to {
+    transform: translateY(-110vh) scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* POSICIONES Y TIEMPOS */
+.particles span:nth-child(1) { left: 5%; animation-duration: 12s; animation-delay: 0s; }
+.particles span:nth-child(2) { left: 15%; animation-duration: 9s; animation-delay: 2s; }
+.particles span:nth-child(3) { left: 25%; animation-duration: 14s; animation-delay: 1s; }
+.particles span:nth-child(4) { left: 35%; animation-duration: 10s; animation-delay: 3s; }
+.particles span:nth-child(5) { left: 45%; animation-duration: 13s; animation-delay: 0s; }
+.particles span:nth-child(6) { left: 55%; animation-duration: 11s; animation-delay: 4s; }
+.particles span:nth-child(7) { left: 65%; animation-duration: 15s; animation-delay: 2s; }
+.particles span:nth-child(8) { left: 75%; animation-duration: 9s; animation-delay: 1s; }
+.particles span:nth-child(9) { left: 85%; animation-duration: 16s; animation-delay: 3s; }
+.particles span:nth-child(10){ left: 95%; animation-duration: 12s; animation-delay: 0s; }
+
+.particles span:nth-child(11){ left: 10%; animation-duration: 18s; animation-delay: 6s; }
+.particles span:nth-child(12){ left: 30%; animation-duration: 14s; animation-delay: 5s; }
+.particles span:nth-child(13){ left: 50%; animation-duration: 20s; animation-delay: 7s; }
+.particles span:nth-child(14){ left: 70%; animation-duration: 17s; animation-delay: 6s; }
+.particles span:nth-child(15){ left: 90%; animation-duration: 19s; animation-delay: 8s; }
+
+
+    /* ===== RESPONSIVE CELULAR ===== */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      .card {
+        padding: 28px 20px;
+        border-radius: 20px;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .hero-image {
+        height: 180px;
+      }
+
+      .mid-image {
+        height: 160px;
+      }
+    }
+    .music-button {
+  display: block;
+  margin: 50px auto 10px;
+  padding: 14px 28px;
+  max-width: 320px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #ff7aa2, #7a5cff);
+  box-shadow: 0 10px 30px rgba(255,122,162,0.4);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: pulseSoft 3s infinite;
+}
+
+/* Efecto hover / touch */
+.music-button:hover,
+.music-button:active {
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(255,122,162,0.6);
+}
+
+/* Brillo que recorre el botón */
+.music-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.35),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: shineBtn 4s infinite;
+}
+
+@keyframes shineBtn {
+  0% { transform: translateX(-100%); }
+  40% { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Pulso suave */
+@keyframes pulseSoft {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* Mobile friendly */
+@media (max-width: 480px) {
+  .music-button {
+    font-size: 0.95rem;
+    padding: 13px 22px;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+  <div class="stars"></div>
+
+  <div class="container">
+
+    <!-- IMAGEN SUPERIOR -->
+    <div class="hero-image"></div>
+
+    <div class="card">
+      <h1>Un Mensaje Para Vos ✨</h1>
+
+      
+
+      <p>
+A veces creo que, si supiera más de ciencias, podría explicar lo que me pasa con vos.
+
+Podría hablar de gravedad, de órbitas, de cómo ciertos cuerpos celestes se acercan sin tocarse y aun así alteran todo el espacio a su alrededor.
+
+Podría decir que tus mensajes son como campos invisibles: no los veo, pero me afectan. Cambian mi dirección, mi ánimo, mi energía, como si una variable nueva hubiera entrado en la ecuación de mi día.
+
+Y cuando te pienso, siento que en mi cabeza se encienden pequeñas tormentas eléctricas, sinapsis que corren de un lado a otro tratando de traducir algo que, en el fondo, el corazón ya entendió.
+
+A veces siento que sos mi constante, esa letra griega que aparece en todas las fórmulas y les da sentido sin pedir protagonismo.
+      </p>
+
+      <!-- IMAGEN INTERMEDIA -->
+      <div class="mid-image"></div>
+
+      <p>
+Pero lo nuestro no cabe en una hoja cuadriculada. Es arte también. Una pincelada que no aparece en el manual, una melodía que empieza siendo pop, suave, y termina sonando a rock, fuerte pero sincero.
+
+Si esto fuera Minecraft, diría que apareciste como un bioma nuevo en un mapa que yo creía conocer. Y desde entonces fui colocando bloques de momentos: palabras, risas, silencios cómodos, hasta construir un refugio cerca tuyo, con faroles que sigan encendidos aun cuando el servidor se quede vacío.
+
+En química dirían que hay afinidades, enlaces que no se ven pero sostienen. Mezclas que no explotan, pero igual cambian su estado.
+
+En física hablarían de energía potencial: de todo lo que podría ocurrir si dos cuerpos se acercan un poco más.
+
+Y en astronomía escribirían que, entre millones de luces, siempre hay una que elegís mirar primero aunque no sepas explicar por qué.
+
+
+      </p>
+
+      <!-- IMAGEN INTERMEDIA 2-->
+      <div class="mid-image2"></div>
+
+      <p>
+Tal vez yo no sea experto en fórmulas ni pueda resolver todos los problemas del universo, pero sé reconocer cuando algo me hace bien. Y vos… me hacés bien.
+
+No te lo digo para apurarte ni para cambiar nada. Solo porque me gustás de esa forma tranquila y real, como una fogata encendida en una noche pixelada, como una obra de arte sin pie de página, como una canción que vuelve sola aunque el mundo esté en silencio.
+
+Y por eso, en vez de preguntar, prefiero afirmarlo — como un científico que busca hechos: me gustás, y eso ya es una verdad en mí. ✨
+      
+
+      </p>
+      <a 
+  href="https://youtu.be/YNPhcMFEJvc?si=Q20gaWlU2sPUep2A" 
+  target="_blank" 
+  class="music-button"
+>
+  ▶ Te la dedico...
+</a>
+
+ <!-- IMAGEN INTERMEDIA 3-->
+      <div class="mid-image3"></div>
+<div class="particles">
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+
+      <div class="signature">— De Santi, para Martu</div>
+      <div class="footer">Hecho con cariño - Santi💫</div>
+    </div>
+
+  </div>
+
+</body>
+</html>
